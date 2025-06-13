@@ -18,6 +18,7 @@ def main():
     os.makedirs(converted_directory, exist_ok=True)  # 确保 converted 文件夹存在
     # 使用 glob 匹配以 .conf 结尾的文件
     conf_files = glob.glob(os.path.join(current_directory, '*china.conf'))
+    conf_files = [f for f in conf_files if not os.path.basename(f).startswith('google.')]
     # 逐个读取文件内容
     for thefile in conf_files:
         if os.path.basename(thefile) == 'bogus-nxdomain.china.conf':

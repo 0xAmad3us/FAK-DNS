@@ -18,7 +18,6 @@ def main():
     os.makedirs(converted_directory, exist_ok=True)  # 确保 converted 文件夹存在
     # 使用 glob 匹配以 .conf 结尾的文件
     conf_files = glob.glob(os.path.join(current_directory, '*china.conf'))
-    conf_files = [f for f in conf_files if not os.path.basename(f).startswith('google.')]
     # 逐个读取文件内容
     for thefile in conf_files:
         if os.path.basename(thefile) == 'bogus-nxdomain.china.conf':
@@ -31,6 +30,8 @@ def main():
     with open(os.path.join(converted_directory, 'FAK-DNS.txt'), 'w') as fak_dns:
         fak_dns.write(the_dns + "\n")  # 新增行，内容为自定义内容
         for txt_file in txt_files:
+            if os.path.basename(txt_file) == 'google.china.conf.txt':
+                continue
             with open(txt_file, 'r') as txt:
                 fak_dns.write(txt.read())
 
